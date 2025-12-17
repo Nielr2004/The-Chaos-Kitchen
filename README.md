@@ -1,4 +1,4 @@
-# 🌪️ The Chaos Kitchen
+# 🌪️ [The Chaos Kitchen](https://the-chaos-kitchen.streamlit.app/)
 
 **Where algorithms cook dinner and the rules don't matter.**
 
