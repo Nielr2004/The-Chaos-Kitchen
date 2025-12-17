@@ -90,7 +90,7 @@ st.markdown("""
         background-color: #FFD700;
         border-right: 5px solid #000;
     }
-    section[data-testid="stSidebar"] h1 { color: #000 !important; text-shadow: none; }
+    section[data-testid="stSidebar"] h1 { color: #000 !important; text-shadow: none; font-weight: 900; font-size: 2.9rem; }
     section[data-testid="stSidebar"] p, section[data-testid="stSidebar"] label {
         color: #000 !important;
         font-weight: 800;
