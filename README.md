@@ -40,7 +40,7 @@ It features a custom **"Pop Art" UI** designed to break the monotony of standard
 
 1.  **Clone the repository**
     ```bash
-    git clone [https://github.com/Nielr2004/The-Chaos-Kitchen.git](https://github.com/Nielr2004/The-Chaos-Kitchen.git)
+    git clone https://github.com/Nielr2004/The-Chaos-Kitchen.git
     cd The-Chaos-Kitchen
     ```
 
