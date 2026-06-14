@@ -10,101 +10,250 @@ import random
 import plotly.graph_objects as go
 
 # 1. PAGE CONFIGURATION
-st.set_page_config(page_title="The Chaos Kitchen", page_icon="🤪", layout="wide")
+st.set_page_config(page_title="The Chaos Kitchen", page_icon="⚗️", layout="wide")
 
-# 2. UI POLISH (REFINED POP ART THEME)
+# 2. UI POLISH (MODERN OPTIMIZED THEME)
 st.markdown("""
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-    /* 1. Main Background: Funky Purple Gradient */
+    /* Main Background */
     .stApp {
-        background: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%);
-        color: #fff;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #f8f9fa;
     }
     
-    .block-container { padding-top: 2rem; }
+    .block-container { 
+        padding-top: 1.5rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
     
-    /* 2. Headers: Comic Style */
+    /* Headers */
     h1 {
-        font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif !important; 
-        color: #FFD700;
-        text-shadow: 4px 4px 0px #000000;
-        transform: rotate(-1deg);
-        font-weight: 900 !important;
-        font-size: 3.5rem !important;
+        color: #ffffff;
+        font-weight: 700 !important;
+        font-size: 2.8rem !important;
+        margin-bottom: 0.5rem !important;
+        letter-spacing: -0.5px;
     }
-    h3 { color: #fff; text-shadow: 2px 2px 0px #000; }
     
-    /* 3. CUSTOM METRIC CSS */
-    .pop-metric-container {
-        text-align: center;
-        margin-bottom: 20px;
+    h2 {
+        color: #ffffff;
+        font-weight: 600 !important;
+        font-size: 1.8rem !important;
+        margin-top: 1.5rem !important;
+        margin-bottom: 1rem !important;
     }
-    .pop-metric-label {
-        color: #000000;
-        font-family: 'Arial Black', sans-serif;
-        font-weight: 900;
-        font-size: 14px;
-        text-transform: uppercase;
-        margin-bottom: 5px;
-        text-shadow: 1px 1px 0px #fff; 
-        letter-spacing: 1px;
+    
+    h3 { 
+        color: #e8eef7;
+        font-weight: 600 !important;
+        font-size: 1.3rem !important;
     }
-    .pop-metric-box {
-        background-color: #FFFFFF;
-        border: 3px solid #000000;
-        box-shadow: 6px 6px 0px #000000;
+    
+    /* Subtitles and captions */
+    .stMarkdown > p {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #e8eef7;
+    }
+    
+    .stCaption {
+        color: #b0bae8 !important;
+        font-size: 0.95rem !important;
+    }
+    
+    /* METRICS CARDS */
+    .metric-container {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.25);
         border-radius: 12px;
-        padding: 15px;
-        font-family: 'Courier New', monospace;
-        font-weight: 900;
-        font-size: 28px; /* Adjusted for better fit */
-        color: #000000;
-        transition: transform 0.2s;
-    }
-    .pop-metric-box:hover {
-        transform: translate(-3px, -3px);
-        box-shadow: 9px 9px 0px #000000;
-        background-color: #FFD700;
+        padding: 20px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
     
-    /* 4. TABS */
-    .stTabs [data-baseweb="tab-list"] { gap: 15px; border: none; }
-    .stTabs [data-baseweb="tab"] {
-        background-color: #222;
-        color: #fff;
-        border-radius: 8px;
-        border: 2px solid #fff;
-        font-weight: bold;
-        padding: 10px 20px;
+    .metric-container:hover {
+        background: rgba(255, 255, 255, 0.18);
+        border-color: rgba(255, 255, 255, 0.35);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     }
+    
+    .metric-label {
+        color: #b0bae8;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+    
+    .metric-value {
+        color: #ffffff;
+        font-size: 2rem;
+        font-weight: 700;
+        font-family: 'Courier New', monospace;
+    }
+    
+    .metric-icon {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+        color: #a0d8ff;
+    }
+    
+    /* TABS */
+    .stTabs [data-baseweb="tab-list"] { 
+        gap: 8px;
+        border: none;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        padding: 4px;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        background-color: transparent;
+        color: #b0bae8;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        padding: 12px 20px;
+        transition: all 0.3s ease;
+    }
+    
+    .stTabs [data-baseweb="tab"]:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+        color: #ffffff;
+    }
+    
     .stTabs [aria-selected="true"] {
-        background-color: #FF4B4B;
-        color: #fff;
-        border-color: #000;
-        box-shadow: 4px 4px 0px #000;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        border-color: transparent;
+        box-shadow: none;
+    }
+    
+    /* SIDEBAR */
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+        border-right: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    
+    section[data-testid="stSidebar"] h1 { 
+        color: #ffffff !important;
+        font-size: 1.6rem !important;
+        font-weight: 700;
+    }
+    
+    section[data-testid="stSidebar"] p, 
+    section[data-testid="stSidebar"] label {
+        color: #e8eef7 !important;
+        font-weight: 500;
+    }
+    
+    /* INPUT CONTROLS */
+    .stSlider > div > div > div > div,
+    .stRadio > div > div,
+    .stMultiSelect > div > div {
+        color: #ffffff;
+    }
+    
+    .stSlider [data-testid="stSliderTickBarMin"],
+    .stSlider [data-testid="stSliderTickBarMax"] {
+        color: #b0bae8 !important;
+    }
+    
+    /* BUTTONS */
+    .stButton > button {
+        background-color: rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .stButton > button:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+        border-color: rgba(255, 255, 255, 0.4);
         transform: translateY(-2px);
     }
     
-    /* 5. SIDEBAR */
-    section[data-testid="stSidebar"] {
-        background-color: #FFD700;
-        border-right: 5px solid #000;
-    }
-    section[data-testid="stSidebar"] h1 { color: #000 !important; text-shadow: none; font-weight: 900; font-size: 2.9rem; }
-    section[data-testid="stSidebar"] p, section[data-testid="stSidebar"] label {
-        color: #000 !important;
-        font-weight: 800;
+    /* STATUS ALERTS */
+    .status-alert {
+        padding: 16px;
+        border-radius: 10px;
+        margin: 12px 0;
+        font-weight: 500;
+        border-left: 4px solid;
+        backdrop-filter: blur(10px);
     }
     
-    /* Alert Box */
-    .pop-alert {
-        padding: 15px;
-        border: 3px solid black;
-        border-radius: 10px;
-        margin-bottom: 10px;
-        font-weight: bold;
-        color: black;
-        box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
+    .status-success {
+        background-color: rgba(34, 197, 94, 0.15);
+        border-left-color: #22c55e;
+        color: #86efac;
+    }
+    
+    .status-warning {
+        background-color: rgba(251, 146, 60, 0.15);
+        border-left-color: #fb923c;
+        color: #fed7aa;
+    }
+    
+    .status-error {
+        background-color: rgba(239, 68, 68, 0.15);
+        border-left-color: #ef4444;
+        color: #fca5a5;
+    }
+    
+    /* GANG/COMMUNITY CARDS */
+    .gang-card {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .gang-card:hover {
+        background: rgba(255, 255, 255, 0.18);
+        border-color: rgba(255, 255, 255, 0.3);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .gang-title {
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+    
+    .gang-members {
+        color: #b0bae8;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    /* DATA TABLE */
+    .stDataFrame {
+        background: rgba(255, 255, 255, 0.08) !important;
+    }
+    
+    .stDataFrame [data-testid="dataframe"] {
+        color: #ffffff;
+    }
+    
+    /* DIVIDER */
+    hr {
+        border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+        margin: 2rem 0 !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -159,16 +308,17 @@ def load_data(limit=300, diet="All"):
     except Exception: return [], {}, {}
 
 # Helper Function for Custom Metrics
-def display_pop_metric(label, value):
+def display_pop_metric(label, icon, value):
     st.markdown(f"""
-    <div class="pop-metric-container">
-        <div class="pop-metric-label">{label}</div>
-        <div class="pop-metric-box">{value}</div>
+    <div class="metric-container">
+        <div class="metric-icon">{icon}</div>
+        <div class="metric-label">{label}</div>
+        <div class="metric-value">{value}</div>
     </div>
     """, unsafe_allow_html=True)
 
 # Sidebar
-st.sidebar.title("🎛️ Controls")
+st.sidebar.title("⚙️ Controls")
 st.sidebar.caption("Adjust the Chaos Matrix")
 limit = st.sidebar.slider("Dataset Size", 50, 600, 250)
 diet_mode = st.sidebar.radio("Diet Mode", ["All", "Vegetarian"])
@@ -232,23 +382,23 @@ for i, comm in enumerate(communities):
 # 5. MAIN DASHBOARD
 c1, c2 = st.columns([3, 1])
 with c1:
-    st.title("The Chaos Kitchen 🌪️")
-    st.markdown("**Where algorithms cook dinner and the rules don't matter.**")
+    st.markdown("# <i class='fas fa-flask-vial'></i> The Chaos Kitchen", unsafe_allow_html=True)
+    st.markdown("*Where algorithms cook dinner and the rules don't matter.*")
 
 # --- CUSTOM METRICS SECTION ---
 m1, m2, m3, m4 = st.columns(4)
-with m1: display_pop_metric("Recipes Analyzed", len(recipes))
-with m2: display_pop_metric("Ingredients", len(G.nodes))
-with m3: display_pop_metric("Flavor Gangs", len(communities))
-with m4: display_pop_metric("Chaos Level", f"{random.randint(80, 100)}%")
+with m1: display_pop_metric("Recipes Analyzed", '<i class="fas fa-utensils"></i>', len(recipes))
+with m2: display_pop_metric("Ingredients", '<i class="fas fa-leaf"></i>', len(G.nodes))
+with m3: display_pop_metric("Flavor Gangs", '<i class="fas fa-users"></i>', len(communities))
+with m4: display_pop_metric("Chaos Level", '<i class="fas fa-fire"></i>', f"{random.randint(80, 100)}%")
 
 st.write("")
 
 # TABS
-tab_net, tab_judge, tab_insight = st.tabs(["🕸️ The Blob", "⚖️ AI Judge", "🧠 The Why"])
+tab_net, tab_judge, tab_insight = st.tabs(["Network", "Judge", "Insights"])
 
 with tab_net:
-    st.markdown("### 🕸️ Ingredient Network")
+    st.markdown("### <i class='fas fa-network-wired'></i> Ingredient Network", unsafe_allow_html=True)
     st.caption("Ingredients that appear in recipes together are connected. Colors represent communities.")
     
     net = Network(height="600px", width="100%", bgcolor="#111", font_color="white", cdn_resources='in_line')
@@ -263,7 +413,7 @@ with tab_net:
         st.error(f"Graph Error: {e}")
 
 with tab_judge:
-    st.markdown("### ⚖️ Judgement Day")
+    st.markdown("### <i class='fas fa-scale-balanced'></i> Judgment Day", unsafe_allow_html=True)
     st.write("Select ingredients to create a dish. The AI will rate your sanity.")
     
     col_in, col_out = st.columns(2)
@@ -281,16 +431,16 @@ with tab_judge:
                 except: connected = False
 
             # Verdict Visuals
-            st.markdown("#### 📝 Verdict:")
+            st.markdown("#### <i class='fas fa-file-lines'></i> Verdict", unsafe_allow_html=True)
             if weird_score > 30:
-                st.markdown(f'<div class="pop-alert" style="background-color:#FF4B4B;">🤮 CRIMINAL OFFENSE<br><span style="font-weight:normal; font-size:14px;">The food police have been dispatched.</span></div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="status-alert status-error"><i class="fas fa-skull-crossbones"></i> CRIMINAL OFFENSE<br><span style="font-size:14px;">The food police have been dispatched.</span></div>', unsafe_allow_html=True)
             elif not connected:
-                st.markdown(f'<div class="pop-alert" style="background-color:#FFD700;">🤨 SUSPICIOUS<br><span style="font-weight:normal; font-size:14px;">These ingredients have absolutely no chemistry.</span></div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="status-alert status-warning"><i class="fas fa-triangle-exclamation"></i> SUSPICIOUS<br><span style="font-size:14px;">These ingredients have absolutely no chemistry.</span></div>', unsafe_allow_html=True)
             else:
-                st.markdown(f'<div class="pop-alert" style="background-color:#00FF00;">👨‍🍳 SURPRISINGLY LEGAL<br><span style="font-weight:normal; font-size:14px;">The algorithms allow this. Proceed.</span></div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="status-alert status-success"><i class="fas fa-check-circle"></i> SURPRISINGLY LEGAL<br><span style="font-size:14px;">The algorithms allow this. Proceed.</span></div>', unsafe_allow_html=True)
 
             # Radar Chart
-            st.markdown("#### 🧬 Flavor DNA")
+            st.markdown("#### <i class='fas fa-dna'></i> Flavor DNA", unsafe_allow_html=True)
             profile = [0, 0, 0, 0, 0]
             c = 0
             for i in my_ings:
@@ -317,7 +467,7 @@ with tab_judge:
                 st.plotly_chart(fig, use_container_width=True)
 
 with tab_insight:
-    st.markdown("### 🧠 The Flavor Gangs")
+    st.markdown("### <i class='fas fa-users'></i> The Flavor Gangs", unsafe_allow_html=True)
     st.caption("The AI has mathematically identified these culinary cliques.")
     
     cols = st.columns(3)
@@ -328,17 +478,16 @@ with tab_insight:
                 # Use the Smart Name
                 gang_name = community_names.get(i, f"Gang #{i+1}")
                 members = list(comm)[:5]
-                color = colors[i % len(colors)]
                 
                 st.markdown(f"""
-                <div style="background-color: {color}; padding: 15px; border: 3px solid black; border-radius: 10px; margin-bottom: 15px; box-shadow: 4px 4px 0px #000;">
-                    <h3 style="margin:0; color:black; text-shadow:none;">{gang_name}</h3>
-                    <p style="margin:0; color:black; font-weight:bold;">{', '.join(members)}</p>
+                <div class="gang-card">
+                    <div class="gang-title"><i class="fas fa-circle" style="color: {color}; margin-right: 8px;"></i>{gang_name}</div>
+                    <div class="gang-members">{', '.join(members)}</div>
                 </div>
                 """, unsafe_allow_html=True)
             
     st.markdown("---")
-    st.markdown("### 🤝 Strongest Friendships")
+    st.markdown("### <i class='fas fa-handshake'></i> Strongest Friendships", unsafe_allow_html=True)
     
     edge_data = []
     for u, v, data in G.edges(data=True):
